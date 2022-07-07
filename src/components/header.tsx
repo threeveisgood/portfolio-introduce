@@ -1,7 +1,17 @@
-import * as React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
+interface HamIsClick {
+  readonly isActive: boolean;
+}
+
 const Header: React.FunctionComponent = () => {
+  const [isHamClick, setIsHamClick] = useState(false);
+
+  const onClick = () => {
+    setIsHamClick(!isHamClick);
+  };
+
   return (
     <HeaderContainer>
       <Nav>
@@ -9,21 +19,33 @@ const Header: React.FunctionComponent = () => {
           <LogoA>Svg Icon</LogoA>
         </Logo>
         <Links>
-          <Ol>
-            <Li>
-              <A href="/about">About</A>
-            </Li>
-            <Li>
-              <A href="/stack">Stack</A>
-            </Li>
-          </Ol>
+          <LinksOl>
+            <LinksLi>
+              <LinksA href="/about">About</LinksA>
+            </LinksLi>
+            <LinksLi>
+              <LinksA href="/stack">Stack</LinksA>
+            </LinksLi>
+          </LinksOl>
         </Links>
         <HamMenuContainer>
-          <HamMenuButton>
+          <HamMenuButton onClick={onClick}>
             <HamMenu>
-              <HamBoxInner />
+              <HamBoxInner isActive={isHamClick} />
             </HamMenu>
           </HamMenuButton>
+          <HamAside isActive={isHamClick}>
+            <AsideNav>
+              <AsideNavOl>
+                <AsideNavLi>
+                  <AsideNavLiA href="/#about">About</AsideNavLiA>
+                </AsideNavLi>
+                <AsideNavLi>
+                  <AsideNavLiA href="/#stack">Stack</AsideNavLiA>
+                </AsideNavLi>
+              </AsideNavOl>
+            </AsideNav>
+          </HamAside>
         </HamMenuContainer>
       </Nav>
     </HeaderContainer>
@@ -82,7 +104,7 @@ const Links = styled.div`
   }
 `;
 
-const Ol = styled.ol`
+const LinksOl = styled.ol`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -91,13 +113,13 @@ const Ol = styled.ol`
   list-style: none;
 `;
 
-const Li = styled.li`
+const LinksLi = styled.li`
   margin: 0px 0.5rem;
   position: relative;
   font-size: ${({ theme }) => theme.fontSize.xs};
 `;
 
-const A = styled.a`
+const LinksA = styled.a`
   padding: 1rem;
   color: inherit;
 `;
@@ -136,16 +158,20 @@ const HamMenu = styled.div`
   position: relative;
 `;
 
-const HamBoxInner = styled.div`
+const HamBoxInner = styled.div<HamIsClick>`
   position: absolute;
   top: 50%;
   right: 0px;
   width: 30px;
   height: 2px;
-  border-radius: ${({ theme }) => theme.boderRadius};
+  border-radius: ${({ theme }) => theme.borderRadius};
   background-color: ${({ theme }) => theme.green};
-  transition: transform 0.22s cubic-bezier(0.55, 0.055, 0.675, 0.19) 0s;
-  transform: rotate(0deg);
+  transition: ${({ isActive }) =>
+    isActive
+      ? "transform 0.22s cubic-bezier(0.215, 0.61, 0.355, 1) 0.12s"
+      : "transform 0.22s cubic-bezier(0.55, 0.055, 0.675, 0.19) 0s"};
+  transform: ${({ isActive }) =>
+    isActive ? "rotate(225deg)" : "rotate(0deg)"};
 
   &::before,
   &::after {
@@ -155,19 +181,88 @@ const HamBoxInner = styled.div`
     left: auto;
     right: 0px;
     height: 2px;
-    border-radius: ${({ theme }) => theme.boderRadius};
+    border-radius: ${({ theme }) => theme.borderRadius};
     background-color: ${({ theme }) => theme.green};
   }
 
   &::before {
-    width: 120%;
-    top: -1rem;
-    opacity: 1;
+    width: ${({ isActive }) => (isActive ? "100%" : "120%")};
+    top: ${({ isActive }) => (isActive ? "0px" : "-1rem")};
+    opacity: ${({ isActive }) => (isActive ? "0" : "1")};
   }
 
   &::after {
-    width: 80%;
-    bottom: -1rem;
-    transform: rotate(0deg);
+    width: ${({ isActive }) => (isActive ? "100%" : "80%")};
+    bottom: ${({ isActive }) => (isActive ? "0px" : "-1rem")};
+    transform: ${({ isActive }) =>
+      isActive ? "rotate(-90deg)" : "rotate(0deg)"};
   }
+`;
+
+// aside
+
+const HamAside = styled.aside<HamIsClick>`
+  display: none;
+
+  ${({ theme }) => theme.media.tabPort} {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0px;
+    bottom: 0px;
+    right: 0px;
+    padding: 5rem 1rem;
+    width: min(75vw, 400px);
+    height: 100vh;
+    outline: 0px;
+    background-color: ${({ theme }) => theme.lightNavy};
+    box-shadow: -10px 0px 30px -15px rgba(2, 12, 27, 0.7);
+    z-index: 9;
+    transform: ${({ isActive }) =>
+      isActive ? "translateX(0vw)" : "translateX(100vw)"};
+    visibility: ${({ isActive }) => (isActive ? "visible" : "hidden")};
+    transition: ${({ theme }) => theme.transition.normal};
+  }
+`;
+
+const AsideNav = styled.nav`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  flex-direction: column;
+  color: ${({ theme }) => theme.lightSlate};
+  text-align: center;
+`;
+
+const AsideNavOl = styled.ol`
+  padding: 0px;
+  margin: 0px;
+  list-style: none;
+  width: 100%;
+`;
+
+const AsideNavLi = styled.li`
+  position: relative;
+  font-size: clamp(
+    ${({ theme }) => theme.fontSize.sm},
+    4vw,
+    ${({ theme }) => theme.fontSize.lg}
+  );
+  margin: 0px auto 0.5rem;
+
+  ${({ theme }) => theme.media.phoneLg} {
+    margin: 0px auto 10px;
+  }
+`;
+
+const AsideNavLiA = styled.a`
+  display: inline-block;
+  text-decoration: none;
+  color: inherit;
+  position: relative;
+  transition: ${({ theme }) => theme.transition.normal};
+  width: 100%;
+  padding: 0.3rem 2rem 2rem;
 `;

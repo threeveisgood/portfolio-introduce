@@ -5,17 +5,28 @@ declare module "styled-components" {
     black: string;
     lightSlate: string;
     green: string;
+    lightNavy: string;
+    slate: string;
     transition: {
       normal: string;
+      hamBefore: string;
+      hamBeforeActive: string;
+      hamAfter: string;
+      hamAfterActive: string;
     };
     fontSize: {
       xs: string;
+      sm: string;
+      md: string;
       lg: string;
+      xl: string;
     };
     media: {
       phone: string;
+      phoneLg: string;
       tabPort: string;
+      tabLand: string;
     };
-    boderRadius: string;
+    borderRadius: string;
   }
 }

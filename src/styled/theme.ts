@@ -29,4 +29,5 @@ export const theme: DefaultTheme = {
     tabLand: "@media only screen and (max-width: 1080px)",
   },
   borderRadius: "0.4rem",
+  heading: "3.2rem",
 };

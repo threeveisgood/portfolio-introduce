@@ -35,8 +35,8 @@ const GlobalStyle = createGlobalStyle`
 
     button {
         cursor: pointer;
-        border: 0px;
-        border-radius: 0px;
+        border: 0rem;
+        border-radius: 0rem;
     }
 
     section {
@@ -59,6 +59,16 @@ const GlobalStyle = createGlobalStyle`
     .big-heading {
         margin: 0px;
         font-size: clamp(4rem, 8vw, 8rem);
+    }
+
+    .heading {
+        display: flex;
+        align-items: center;
+        position: relative;
+        margin: 1rem 0px 4rem;
+        width: 100%;
+        font-size: clamp(2.6rem,5vw,${({ theme }) => theme.heading});
+        white-space: nowrap;
     }
 `;
 

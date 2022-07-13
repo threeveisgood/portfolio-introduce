@@ -28,5 +28,6 @@ declare module "styled-components" {
       tabLand: string;
     };
     borderRadius: string;
+    heading: string;
   }
 }

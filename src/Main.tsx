@@ -1,9 +1,11 @@
 import * as React from "react";
 import styled from "styled-components";
+import AboutMe from "./components/sections/AboutMe";
+import Skills from "./components/sections/Skills";
 
 const Main: React.FunctionComponent = () => {
   return (
-    <>
+    <div>
       <MainContainer>
         <MainSection>
           <div>
@@ -27,8 +29,10 @@ const Main: React.FunctionComponent = () => {
             </SectionGitLink>
           </div>
         </MainSection>
+        <AboutMe />
+        <Skills />
       </MainContainer>
-    </>
+    </div>
   );
 };
 
@@ -39,7 +43,7 @@ const MainContainer = styled.main`
   width: 100%;
   max-width: 1600px;
   min-height: 100vh;
-  padding: 20rem 15rem;
+  padding: 0px 15rem;
 
   ${({ theme }) => theme.media.tabLand} {
     padding: 0px 10rem;

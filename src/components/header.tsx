@@ -9,7 +9,7 @@ const Header: React.FunctionComponent = () => {
   const [isHamClick, setIsHamClick] = useState(false);
 
   const onClick = () => {
-    setIsHamClick(!isHamClick);
+    setIsHamClick((ham) => !ham);
   };
 
   return (
@@ -61,11 +61,11 @@ const HeaderContainer = styled.header`
   width: 100%;
   align-items: center;
   position: fixed;
-  height: 100px;
-  top: 0px;
+  height: 10rem;
+  top: 0;
   z-index: 11;
   padding: 0 5rem;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(1rem);
   transition: ${(props) => props.theme.transition.normal};
   pointer-events: auto;
 
@@ -108,13 +108,13 @@ const LinksOl = styled.ol`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0px;
-  margin: 0px;
+  padding: 0;
+  margin: 0;
   list-style: none;
 `;
 
 const LinksLi = styled.li`
-  margin: 0px 0.5rem;
+  margin: 0 0.5rem;
   position: relative;
   font-size: ${({ theme }) => theme.fontSize.xs};
 `;
@@ -142,7 +142,7 @@ const HamMenuButton = styled.button`
   z-index: 10;
   margin-right: -1.5rem;
   padding: 1.5rem;
-  border: 0px;
+  border: 0;
   background-color: transparent;
   color: inherit;
   text-transform: none;
@@ -153,17 +153,17 @@ const HamMenuButton = styled.button`
 
 const HamMenu = styled.div`
   display: inline-block;
-  width: 30px;
-  height: 24px;
+  width: 3rem;
+  height: 2.4rem;
   position: relative;
 `;
 
 const HamBoxInner = styled.div<HamIsClick>`
   position: absolute;
   top: 50%;
-  right: 0px;
-  width: 30px;
-  height: 2px;
+  right: 0;
+  width: 3rem;
+  height: 0.2rem;
   border-radius: ${({ theme }) => theme.borderRadius};
   background-color: ${({ theme }) => theme.green};
   transition: ${({ isActive }) =>
@@ -179,21 +179,21 @@ const HamBoxInner = styled.div<HamIsClick>`
     display: block;
     position: absolute;
     left: auto;
-    right: 0px;
-    height: 2px;
+    right: 0;
+    height: 0.2rem;
     border-radius: ${({ theme }) => theme.borderRadius};
     background-color: ${({ theme }) => theme.green};
   }
 
   &::before {
     width: ${({ isActive }) => (isActive ? "100%" : "120%")};
-    top: ${({ isActive }) => (isActive ? "0px" : "-1rem")};
+    top: ${({ isActive }) => (isActive ? "0" : "-1rem")};
     opacity: ${({ isActive }) => (isActive ? "0" : "1")};
   }
 
   &::after {
     width: ${({ isActive }) => (isActive ? "100%" : "80%")};
-    bottom: ${({ isActive }) => (isActive ? "0px" : "-1rem")};
+    bottom: ${({ isActive }) => (isActive ? "0" : "-1rem")};
     transform: ${({ isActive }) =>
       isActive ? "rotate(-90deg)" : "rotate(0deg)"};
   }
@@ -209,15 +209,15 @@ const HamAside = styled.aside<HamIsClick>`
     justify-content: center;
     align-items: center;
     position: fixed;
-    top: 0px;
-    bottom: 0px;
-    right: 0px;
+    top: 0;
+    bottom: 0;
+    right: 0;
     padding: 5rem 1rem;
-    width: min(75vw, 400px);
+    width: min(75vw, 40rem);
     height: 100vh;
-    outline: 0px;
+    outline: 0;
     background-color: ${({ theme }) => theme.lightNavy};
-    box-shadow: -10px 0px 30px -15px rgba(2, 12, 27, 0.7);
+    box-shadow: -1rem 0 3rem -1.5rem rgba(2, 12, 27, 0.7);
     z-index: 9;
     transform: ${({ isActive }) =>
       isActive ? "translateX(0vw)" : "translateX(100vw)"};
@@ -237,8 +237,8 @@ const AsideNav = styled.nav`
 `;
 
 const AsideNavOl = styled.ol`
-  padding: 0px;
-  margin: 0px;
+  padding: 0;
+  margin: 0;
   list-style: none;
   width: 100%;
 `;
@@ -250,10 +250,10 @@ const AsideNavLi = styled.li`
     4vw,
     ${({ theme }) => theme.fontSize.lg}
   );
-  margin: 0px auto 0.5rem;
+  margin: 0 auto 0.5rem;
 
   ${({ theme }) => theme.media.phoneLg} {
-    margin: 0px auto 10px;
+    margin: 0 auto 1rem;
   }
 `;
 
